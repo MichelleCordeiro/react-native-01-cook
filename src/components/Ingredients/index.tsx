@@ -1,7 +1,8 @@
 import { ScrollView } from "react-native"
+import { services } from "@/services"
+import { Ingredient, IngredientsProps } from "@/components/Ingredient"
 
 import { styles } from "./styles"
-import { IngredientsProps } from "@/components/Ingredient"
 
 type Props = {
   ingredients: IngredientsProps[]
@@ -15,6 +16,13 @@ export function Ingredients({ ingredients }: Props) {
       contentContainerStyle={styles.ingredientsContent}
       showsHorizontalScrollIndicator={false}
     >
+    {ingredients.map((ingredient) => (
+      <Ingredient
+        key={ingredient.name}
+        name={ingredient.name}
+        image={`${services.storage.imagePath}/${ingredient.image}`}
+      />
+    ))}
     </ScrollView>
   )
 }
