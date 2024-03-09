@@ -1,6 +1,8 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { ScrollView, Text, View, Alert } from 'react-native'
 import { router } from 'expo-router'
+
+import { services } from '@/services'
 
 import { Ingredient } from '@/components/Ingredient'
 import { Selected } from '@/components/Selected'
@@ -8,6 +10,7 @@ import { styles } from './styles'
 
 export default function Index() {
   const [selected, setSelected] = useState<string[]>([])
+  const [ingredients, setIngredients] = useState<IngredientResponse[]>([])
 
   function handleToggleSelected(value: string) {
     if (selected.includes(value)) {
@@ -29,6 +32,10 @@ export default function Index() {
     router.navigate('/recipes/')
   }
 
+  useEffect(() => {
+    services.ingredientes.findAll().then(setIngredients)
+  }, [])
+
   return (
     <View style={styles.container}>
       <Text style={styles.title}>
@@ -39,13 +46,13 @@ export default function Index() {
       <Text style={styles.message}>Descubra receitas baseadas nos produtos que você escolheu.</Text>
 
       <ScrollView contentContainerStyle={styles.ingredients} showsVerticalScrollIndicator={false}>
-        {Array.from({ length: 100 }).map((item, index) => (
+        {ingredients.map(item => (
           <Ingredient
-            key={index}
-            name='Mmaça'
-            image=''
-            selected={selected.includes(String(index))}
-            onPress={() => handleToggleSelected(String(index))}
+            key={item.id}
+            name={item.name}
+            image={`${services.storage.imagePath}/${item.image}`}
+            selected={selected.includes(String(item.id))}
+            onPress={() => handleToggleSelected(String(item.id))}
           />
         ))}
       </ScrollView>
