@@ -1,10 +1,11 @@
-import * as ingredientes from './ingredientsService'
+import * as ingredients from './ingredientsService'
+import * as recipes from './recipesService'
 
 export const services = {
-  ingredientes,
+  ingredients,
+  recipes,
 
   storage: {
-    imagePath:
-      'https://dxvihjotmmmyapikkoje.supabase.co/storage/v1/object/public/ingredients'
+    imagePath: 'https://dxvihjotmmmyapikkoje.supabase.co/storage/v1/object/public/ingredients'
   }
 }

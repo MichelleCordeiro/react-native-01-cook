@@ -10,14 +10,19 @@ import { Ingredients } from '@/components/Ingredients'
 
 export default function Recipes() {
   const [ingredients, setIngredients] = useState<IngredientResponse[]>([])
+  const [recipes, setRecipes] = useState<RecipeResponse[]>([])
+
   const params = useLocalSearchParams<{ ingredientsIds: string }>()
   // console.log(params)
-
   const ingredientsIds = params.ingredientsIds.split(',')
 
   useEffect(() => {
-    services.ingredientes.findByIds(ingredientsIds).then(setIngredients);
+    services.ingredients.findByIds(ingredientsIds).then(setIngredients)
   },[])
+
+  useEffect(() => {
+    services.recipes.findByIngredientsIds(ingredientsIds).then(setRecipes)
+  }, [])
   
   return (
     <View style={styles.container}>
@@ -25,23 +30,20 @@ export default function Recipes() {
         <MaterialIcons name='arrow-back' size={32} onPress={() => router.back()} />
 
         <Text style={styles.title}>Ingredientes</Text>
-
-        <Ingredients ingredients={ingredients} />
-
-        <FlatList
-          data={['1']}
-          keyExtractor={item => item}
-          renderItem={() => (
-            <Recipe
-              recipe={{
-                name: 'Omelete',
-                image: 'https://i.postimg.cc/sXyQSpKJ/omelete.jpg',
-                minutes: 10
-              }}
-            />
-          )}
-        />
       </View>
+
+      <Ingredients ingredients={ingredients} />
+
+      <FlatList
+        data={recipes}
+        keyExtractor={item => item.id}
+        renderItem={({ item }) => <Recipe recipe={item} />}
+        style={styles.recipes}
+        contentContainerStyle={styles.recipesContent}
+        showsVerticalScrollIndicator={false}
+        columnWrapperStyle={{ gap: 16 }}
+        numColumns={2}
+      />
     </View>
   )
 }

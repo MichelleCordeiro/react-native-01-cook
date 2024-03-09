@@ -33,7 +33,7 @@ export default function Index() {
   }
 
   useEffect(() => {
-    services.ingredientes.findAll().then(setIngredients)
+    services.ingredients.findAll().then(setIngredients)
   }, [])
 
   return (
