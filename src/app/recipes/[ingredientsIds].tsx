@@ -37,7 +37,11 @@ export default function Recipes() {
       <FlatList
         data={recipes}
         keyExtractor={item => item.id}
-        renderItem={({ item }) => <Recipe recipe={item} />}
+        renderItem={({ item }) => 
+          <Recipe 
+            recipe={item} 
+            onPress={() => router.navigate('/recipe/' + item.id)} 
+          />}
         style={styles.recipes}
         contentContainerStyle={styles.recipesContent}
         showsVerticalScrollIndicator={false}
