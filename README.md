@@ -11,10 +11,11 @@
 <div align="center">
   Aplicação mobile desenvolvida no React Native na Prática da <a href="https://www.rocketseat.com.br/" target="_blank">RocketSeat</a>
 
-  <br>
+  <br><br>
 
-  <img src="https://i.postimg.cc/h4NzNjtP/cook-app.png" alt="Cookk App" width="900">
-  <!-- <video controls src="https://github.com/MichelleCordeiro/nlw-expert-react-notes/assets/42891377/27842410-bae5-4d2e-96ca-3c512a9792fe" title="App Notes" width="900"></video> -->
+  <!-- <img src="https://i.postimg.cc/h4NzNjtP/cook-app.png" alt="Cookk App" width="900"> -->
+  <video controls src="https://github.com/MichelleCordeiro/react-native-01-cook/assets/42891377/13fa611e-acd8-41f2-8ada-ed16ed0f9285" title="App Notes" width="900"></video>
+  
 </div>
 
 <br>
@@ -22,8 +23,7 @@
 <!-- Infos session -->
 <h3> 💻 Projeto </h3>
 
-&emsp; &emsp; Esse projeto é uma aplicação mobile de receitas, que ajudará o usuário a criar uma receita com os ingredientes disponíveis. Foi desenvolvido em React Native utilizando Typescript.
-<!-- TailwindCSS, Radix/ui, React Query, React Hook Form, React Router DOM, Tanstack... -->
+&emsp; &emsp; Esse projeto é uma aplicação mobile de receitas, que ajudará o usuário a criar uma receita de acordo com os ingredientes que ele tiver. Foi desenvolvido com React Native, Expo, Expo router, Supabase e React Native reanimated.
 
 <!-- &emsp; &emsp; 🚧 Em desenvolvimento: apenas a tela Upload foi desenvolvida parcialmente, implementados a criação de nova tag, o search/filter e a paginação. -->
 
@@ -40,6 +40,7 @@
   <code><img height="25" src="https://raw.githubusercontent.com/github/explore/80688e429a7d4ef2fca1e82350fe8e3517d3494d/topics/react-native/react-native.png" alt="React Native">React Native</code>
   <code><img height="22" src="https://raw.githubusercontent.com/github/explore/80688e429a7d4ef2fca1e82350fe8e3517d3494d/topics/typescript/typescript.png" alt="TypeScript"> TypeScript</code>
   <code><img height="23" src="https://i.postimg.cc/TYBx6CQn/logo-expo.png" alt="Expo"> Expo</code>
+  <code><img height="21" src="https://i.postimg.cc/k5bJYscq/logo-reanimated-gray.png" alt="React Native reanimated"> React Native reanimated</code>
   <code><img height="23" src="https://i.postimg.cc/V6vWMpby/Android-Studio-Icon-2021.png" alt="Android Studio"> Android Studio</code>
   <code><img height="23" src="https://raw.githubusercontent.com/github/explore/80688e429a7d4ef2fca1e82350fe8e3517d3494d/topics/android/android.png" alt="Android">Android</code>
   <code><img height="21" src="https://raw.githubusercontent.com/github/explore/80688e429a7d4ef2fca1e82350fe8e3517d3494d/topics/visual-studio-code/visual-studio-code.png" alt="VS Code"> VS Code</code>
@@ -52,7 +53,8 @@
 - [JavaScript](https://developer.mozilla.org/pt-BR/docs/Learn/JavaScript/First_steps/What_is_JavaScript) - linguagem de programação que permite implementar itens complexos em páginas web
 - [React Native](https://reactnative.dev/) -  biblioteca JavaScript usada para desenvolver aplicativos Android e iOS 
 - [TypeScript](https://www.typescriptlang.org/) - superset de JavaScript que adiciona tipagem estática ao código
-- [Expo](https://expo.dev/) - framework utilizadoo no desenvolvimento de aplicações mobilecom React Native
+- [Expo](https://expo.dev/) - framework utilizadoo no desenvolvimento de aplicações mobile com React Native
+- [React Native reanimated](https://docs.swmansion.com/react-native-reanimated) - biblioteca de animações
 - [Android Studio](https://developer.android.com/develop) - ambiente de desenvolvimento integrado para desenvolver para a plataforma Android  
 
 
@@ -70,13 +72,17 @@
     <td>
       <li>React Native</li>
       <li>TypeScript</li>
-      <!-- <li>React Router DOM</li>
+      <li>React Native reanimated</li>
+      <!-- <li>React Router DOM</li>-->
     </td>
     <td>
-      <li>Componetização</li>
+      <li>Expo</li>
+      <li>Expo router</li>
+      <li>Supabase</li>
+      <!-- <li>Componetização</li>
       <li>Desestruturação</li>
-      <li>Acessibilidade</li>
-    </td> -->
+      <li>Acessibilidade</li> -->
+    </td>
   </tr>
 </table>
 
@@ -98,12 +104,20 @@ You can see the project online here.
 │   |   ├── 📁 index: pasta da página inicial da aplicação
 │   |   |   |── index.tsx: arquivo com a inicialização do React
 │   |   |   |── styles.tsx: arquivo de estilização da página inicial
+│   |   ├── 📁 recipe: pasta da página de uma receita
+│   |   ├── 📁 recipes: pasta da página das receitas
 │   |   ├── _layout.tsx: arquivo de estilização
 │   ├── 📁 assets: arquivos de imagem
 │   ├── 📁 components: componentes da aplicação
+│   |   |── 📁 Button
 │   |   |── 📁 Ingredient: componentes do ingrediente
 │   |   |── 📁 Ingredients: componentes da lista de ingredientes
-│   ├── 📁 theme: contém arquivos de estilização da aplicação
+│   |   |── 📁 Loading
+│   |   |── 📁 Recipe
+│   |   |── 📁 Selected
+│   |   |── 📁 Step
+│   ├── 📁 services: contém arquivos de configuração do Supabase
+│   ├── theme: contém arquivos de estilização da aplicação
 ├── README.md: arquivo com informações do projeto
 ```
 <br>
@@ -113,31 +127,32 @@ You can see the project online here.
 
 &emsp; &emsp; Precisa ter o [Node.js](https://nodejs.org/en/) instalado na sua máquina para rodar essa aplicação.
 
-&emsp; &emsp; Após clonar o repositório, acesse a pasta do projeto e execute os comandos: *npm install*, *npm run server* e em outro terminal *npm run dev*.
+&emsp; &emsp; Após clonar o repositório, acesse a pasta do projeto e execute os comandos: *npm install* e *npx run start* (aguarde demora um pouco).
 
 ```bash
-  git clone https://github.com/MichelleCordeiro/nlw-expert-react-notes.git
+  git clone https://github.com/MichelleCordeiro/react-pratica-01-nivo.git
 
   npm install
 
-  npm run server
+  cd cook
 
-  npm run dev
+  npx expo start
 ```
 
-&emsp; &emsp; Acesse http://localhost:5173 para visualizar a aplicação. -->
+<!-- &emsp; &emsp; Acesse http://localhost:8081 para visualizar a aplicação. -->
 
 <br>
 
 <!-- Future implementations session -->
-<!-- <h2> 🔮 Implementações futuras: </h2>
+<h2> 🔮 Implementações futuras: </h2>
 
-- [ ] implementar edição das notas
-- [ ] armazenar as informações das notas num banco de dados (atual localStorage)
-- [ ] categorizar as notas com tags e cores especificas
-- [ ] exibir as notas por categorias
+- [ ] informar no ingrediente quantas receitas existem com ele
+- [ ] destacar ingredientes sem receita com a cor vermelha
+- [ ] ajustar o responsivo
+- [ ] implementar cadastro de novos ingredientes
+- [ ] implementar cadastro de novas receitas
 
-<br> -->
+<br>
 
 <!-- Contacts session -->
 <h3> 👩🏼‍💻 Contatos </h3>
